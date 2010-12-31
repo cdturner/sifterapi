@@ -1,0 +1,6 @@
+This a simple .NET wrapper to handle all the javascript unwinding of calling the 
+sifterapp.com apis.
+
+It is provided as is, no warranty, under GNU LESSER Public http://www.gnu.org/licenses/lgpl.html
+
+it is written with Visual Studio 2008, .NET framework version 3.5
