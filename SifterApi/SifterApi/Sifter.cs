@@ -40,7 +40,14 @@ namespace SifterApi
             JavaScriptSerializer JSS = new JavaScriptSerializer();
             Types.ResponseTypes.ProjectsResponse PR = JSS.Deserialize<Types.ResponseTypes.ProjectsResponse>( Data );
 
-            return PR.Projects;
+            if ( PR != null )
+            {
+                return PR.Projects;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public List<Types.Milestone> Milestones( Types.Project CurrentProject )
@@ -50,7 +57,14 @@ namespace SifterApi
             JavaScriptSerializer JSS = new JavaScriptSerializer();
             Types.ResponseTypes.MilestonesResponse MR = JSS.Deserialize<Types.ResponseTypes.MilestonesResponse>( Data );
 
-            return MR.Milestones;
+            if ( MR != null )
+            {
+                return MR.Milestones;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public List<Types.Person> People( Types.Project CurrentProject )
@@ -60,7 +74,14 @@ namespace SifterApi
             JavaScriptSerializer JSS = new JavaScriptSerializer();
             Types.ResponseTypes.PeopleResponse PR = JSS.Deserialize<Types.ResponseTypes.PeopleResponse>( Data );
 
-            return PR.People;
+            if ( PR != null )
+            {
+                return PR.People;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public List<Types.IssueListingEntry>Issues( Types.Project CurrentProject )
@@ -94,12 +115,21 @@ namespace SifterApi
         {
             string Data = MakeApiCall( CurrentProject.Api_Issues_Url + "?per_page=" + ResultsToReturn.ToString() + "&pg=" + Page.ToString() );
 
+            TotalPages = 0;
+
             JavaScriptSerializer JSS = new JavaScriptSerializer();
             Types.ResponseTypes.IssuesResponse IR = JSS.Deserialize<Types.ResponseTypes.IssuesResponse>( Data );
 
-            TotalPages = IR.Total_Pages;
 
-            return IR.Issues;
+            if ( IR != null )
+            {
+                TotalPages = IR.Total_Pages;
+                return IR.Issues;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public Types.IssueDetails IssueDetails( Types.Project CurrentProject, Types.IssueListingEntry ILE )
@@ -109,7 +139,14 @@ namespace SifterApi
             JavaScriptSerializer JSS = new JavaScriptSerializer();
             Types.ResponseTypes.IssueDetailsResponse IR = JSS.Deserialize<Types.ResponseTypes.IssueDetailsResponse>( Data );
 
-            return IR.Issue;
+            if ( IR != null )
+            {
+                return IR.Issue;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public List<Types.IssueDetails> IssueDetails( Types.Project CurrentProject, List<Types.IssueListingEntry> ILEs )
