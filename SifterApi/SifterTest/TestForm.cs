@@ -60,7 +60,7 @@ namespace SifterTest
             Sifter S = new Sifter( ApiKey, Uri );
 
             int Total = 0;
-            List<SifterApi.Types.IssueListingEntry> ILEs = S.Issues( Proj, 1, 17, out Total );
+            List<SifterApi.Types.IssueListingEntry> ILEs = S.Issues( Proj, 2, 17, out Total );
 
             Results.AppendText( "ILEs Count = " + ILEs.Count.ToString() + Environment.NewLine );
 

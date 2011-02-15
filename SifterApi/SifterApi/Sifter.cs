@@ -7,6 +7,9 @@ using System.Web.Script.Serialization;
 
 namespace SifterApi
 {
+    /// <summary>
+    /// Class for accessing the Api provided by Sifterapp.com. Converts the responses into .Net classes for easier handling.
+    /// </summary>
     public class Sifter
     {
         protected string _ApiKey = "";
@@ -15,6 +18,7 @@ namespace SifterApi
         public delegate void OnStartWebRequestDelegate();
         public delegate void OnCompletedWebRequestDelegate();
         public delegate void OnErrorWebRequestDelegate( Exception E );
+        public delegate void OnProgressDelegate( int TotalCount, int CurrentCount );
 
         // this is called at the start of EACH web request. most calls are only one webrequest, except Issues() and IssueDetails()
         public OnStartWebRequestDelegate OnStartWebRequest = null;
@@ -24,6 +28,8 @@ namespace SifterApi
 
         // called upon an exception being fired, such as "cannot resolve host" or "406 Nto acceptable"....
         public OnErrorWebRequestDelegate OnErrorDuringWebRequest = null;
+
+        public OnProgressDelegate OnProgress = null;
 
         public Sifter( string ApiKey, string Uri )
         {
@@ -88,7 +94,7 @@ namespace SifterApi
         {
             string Url = CurrentProject.Api_Issues_Url;
 
-            int CurrentPage = 0;
+            int CurrentPage = 1;
             int TotalPages = 1;
 
             List<Types.IssueListingEntry> Results = new List<SifterApi.Types.IssueListingEntry>();
@@ -105,6 +111,11 @@ namespace SifterApi
                 TotalPages = IR.Total_Pages;
                 CurrentPage += 1;
                 Url = IR.Next_Page_Url;
+
+                if ( OnProgress != null )
+                {
+                    OnProgress( TotalPages, CurrentPage );
+                }
             }
             while ( CurrentPage <= TotalPages );
 
@@ -113,7 +124,7 @@ namespace SifterApi
 
         public List<Types.IssueListingEntry>Issues( Types.Project CurrentProject, int Page, int ResultsToReturn, out int TotalPages )
         {
-            string Data = MakeApiCall( CurrentProject.Api_Issues_Url + "?per_page=" + ResultsToReturn.ToString() + "&pg=" + Page.ToString() );
+            string Data = MakeApiCall( CurrentProject.Api_Issues_Url + "?per_page=" + ResultsToReturn.ToString() + "&page=" + Page.ToString() );
 
             TotalPages = 0;
 
@@ -153,9 +164,18 @@ namespace SifterApi
         {
             List<Types.IssueDetails> Results = new List<SifterApi.Types.IssueDetails>();
 
+            int TotalRequests = ILEs.Count;
+            int CurrentRequest = 1;
+
             foreach ( Types.IssueListingEntry ILE in ILEs )
             {
                 Results.Add( IssueDetails( CurrentProject, ILE ) );
+                if ( OnProgress != null )
+                {
+                    OnProgress( TotalRequests, CurrentRequest );
+                }
+
+                CurrentRequest += 1;
             }
 
             return Results;
@@ -205,6 +225,10 @@ namespace SifterApi
                 if ( OnErrorDuringWebRequest != null )
                 {
                     OnErrorDuringWebRequest( E );
+                }
+                else
+                {
+                    throw E;
                 }
             }
 

@@ -38,9 +38,9 @@
             this.issueListPage1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.issuesListAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.issueDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Results = new System.Windows.Forms.TextBox();
             this.linqExamplesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modifiedTodayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Results = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -112,7 +112,7 @@
             this.issueListPage1ToolStripMenuItem.Enabled = false;
             this.issueListPage1ToolStripMenuItem.Name = "issueListPage1ToolStripMenuItem";
             this.issueListPage1ToolStripMenuItem.Size = new System.Drawing.Size( 181, 24 );
-            this.issueListPage1ToolStripMenuItem.Text = "IssueList Page 1";
+            this.issueListPage1ToolStripMenuItem.Text = "IssueList Page 2";
             this.issueListPage1ToolStripMenuItem.Click += new System.EventHandler( this.issueListPage1ToolStripMenuItem_Click );
             // 
             // issuesListAllToolStripMenuItem
@@ -131,15 +131,6 @@
             this.issueDetailsToolStripMenuItem.Text = "IssueDetails";
             this.issueDetailsToolStripMenuItem.Click += new System.EventHandler( this.issueDetailsToolStripMenuItem_Click );
             // 
-            // Results
-            // 
-            this.Results.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Results.Location = new System.Drawing.Point( 0, 28 );
-            this.Results.Multiline = true;
-            this.Results.Name = "Results";
-            this.Results.Size = new System.Drawing.Size( 282, 229 );
-            this.Results.TabIndex = 1;
-            // 
             // linqExamplesToolStripMenuItem
             // 
             this.linqExamplesToolStripMenuItem.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
@@ -154,6 +145,15 @@
             this.modifiedTodayToolStripMenuItem.Size = new System.Drawing.Size( 184, 24 );
             this.modifiedTodayToolStripMenuItem.Text = "Modified Today";
             this.modifiedTodayToolStripMenuItem.Click += new System.EventHandler( this.modifiedTodayToolStripMenuItem_Click );
+            // 
+            // Results
+            // 
+            this.Results.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Results.Location = new System.Drawing.Point( 0, 28 );
+            this.Results.Multiline = true;
+            this.Results.Name = "Results";
+            this.Results.Size = new System.Drawing.Size( 282, 229 );
+            this.Results.TabIndex = 1;
             // 
             // TestForm
             // 
